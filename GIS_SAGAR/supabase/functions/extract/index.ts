@@ -1,6 +1,6 @@
 import {validateRequest} from '../../../src/core/request.ts';
 import {geeExpression,restResult} from '../../../src/core/geeRest.ts';
-// Supabase Edge Function. This deployment path is authored, not yet live-tested.
+// Supabase Edge Function. Authored and source-tested; live parity still pending. Rev 4.
 declare const Deno: {env:{get:(name:string)=>string|undefined};serve:(fn:(r:Request)=>Promise<Response>)=>void};
 const get=(key:string)=>Deno.env.get(key)||'';
 const encode=(value:Uint8Array)=>btoa(String.fromCharCode(...value)).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
@@ -27,7 +27,6 @@ Deno.serve(async request=>{
  const bearer=request.headers.get('authorization');if(!bearer?.startsWith('Bearer '))return json(401,{error:'Sign in to the application first.'});
  // Current and legacy Supabase key formats are both accepted for user verification.
  const userKey=get('SUPABASE_ANON_KEY')||get('SUPABASE_PUBLISHABLE_KEY');
-
  if(!get('SUPABASE_URL')||!userKey||!get('ALLOWED_USER_IDS'))return json(503,{error:'Backend authentication allowlist is not configured.'});
  try{
   const userResponse=await fetch(get('SUPABASE_URL')+'/auth/v1/user',{headers:{Authorization:bearer,apikey:userKey},signal:AbortSignal.timeout(10000)});
