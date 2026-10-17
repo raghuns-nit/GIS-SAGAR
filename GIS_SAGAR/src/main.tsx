@@ -1,4 +1,4 @@
-import React,{useMemo,useState,useRef} from 'react';
+import React,{useMemo,useState,useRef,useEffect} from 'react';
 import {createRoot} from 'react-dom/client';
 import {area} from '@turf/turf';
 import {cloneConfig} from './core/config.ts';
@@ -6,8 +6,12 @@ import {CATALOGUE,FACT_LABELS} from './core/catalogue.ts';
 import {evaluateCell,validateConfig,binRank} from './core/engine.ts';
 import {pinSquare,validateSite,makeGrid,type Site} from './core/geometry.ts';
 import {syntheticEvidence} from './core/synthetic.ts';
+import {validateRequest} from './core/request.ts';
 import {validateBundle,geeRequest,type EvidenceBundle} from './core/evidence.ts';
+type LiveRequest=ReturnType<typeof validateRequest> & {soilSource?:string};
+function liveRequestBody(site:Site,soilSource:string){const request=geeRequest(site,makeGrid(site)) as LiveRequest;request.soilSource=soilSource;return request;}
 import {codeEditorScript} from './core/codeEditor.ts';
+import {authClient,authConfigured,pilotSignIn,pilotSignOut,pilotSession} from './core/auth.ts';
 import {MapPanel} from './MapPanel.tsx';
 import type {Context,ModelConfig,SoilSource,StructureResult} from './core/types.ts';
 import testSiteEvidence from '../examples/live/GWR1-74_794309-openlandmap-evidence.json';
@@ -60,7 +64,10 @@ function App(){
  const siteRef=useRef(site);siteRef.current=site;
  const [config,setConfig]=useState<ModelConfig>(cloneConfig),[context,setContext]=useState<Context>({facts:{},blockedFamilies:[]});
  const [error,setError]=useState(''),[cellId,setCellId]=useState('');
- const [endpoint,setEndpoint]=useState(import.meta.env.VITE_ANALYSIS_ENDPOINT||''),[accessToken,setAccessToken]=useState(''),[loading,setLoading]=useState(false);
+ const [endpoint,setEndpoint]=useState(import.meta.env.VITE_ANALYSIS_ENDPOINT||''),[loading,setLoading]=useState(false);
+ const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[authBusy,setAuthBusy]=useState(false),[sessionEmail,setSessionEmail]=useState('');
+ const sessionToken=useRef('');
+ useEffect(()=>{(async()=>{const s=await pilotSession();if(s?.user.email)setSessionEmail(s.user.email!);})();},[]);
  const results=useMemo(()=>bundle?bundle.cells.map(c=>evaluateCell(c,config,context)):[],[bundle,config,context]);
  const current=results.find(r=>r.id===cellId)||results[0];
  const selected=bundle?.cells.find(c=>c.id===current?.id);
@@ -83,12 +90,15 @@ function App(){
   }catch(err){setError((err as Error).message);}e.target.value='';
  }
  async function live(){setLoading(true);setError('');try{
-  if(soilSource==='OPENLANDMAP')throw new Error('OpenLandMap requires an observation file.');
-  if(!endpoint||!accessToken)throw new Error('Enter the connection URL and session token.');
+  const session=await pilotSession();const token=session?.access_token;
+  if(!session||!token)throw new Error('Sign in to the pilot first.');
+  if(!endpoint)throw new Error('Enter the connection URL.');
   const url=new URL(endpoint);if(url.protocol!=='https:'&&!(url.protocol==='http:'&&['localhost','127.0.0.1'].includes(url.hostname)))throw new Error('Connection requires HTTPS.');
-  const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${accessToken}`},body:JSON.stringify(geeRequest(site,makeGrid(site)))});
-  const data=await response.json();if(!response.ok)throw new Error(data.error||`Request failed (${response.status}).`);setBundle(validateBundle(data,siteRef.current));
+  const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify(liveRequestBody(site,soilSource))});
+  const data=await response.json();if(!response.ok)throw new Error(data.error||`Request failed (${response.status}).`);setBundle(validateBundle(data,siteRef.current,soilSource));
  }catch(e){setError((e as Error).message);}finally{setLoading(false);}}
+ async function signIn(e:React.FormEvent){e.preventDefault();setAuthBusy(true);setError('');try{const s=await pilotSignIn(email,password);sessionToken.current=s.access_token;setSessionEmail(s.user.email??'');setPassword('');}catch(err){setError((err as Error).message);}finally{setAuthBusy(false);}}
+ async function signOut(){await pilotSignOut();sessionToken.current='';setSessionEmail('');}
  function saveSnapshot(){download('gis-sagar-snapshot.json',{schema:'gis-sagar-snapshot-v1',createdAt:new Date().toISOString(),evidence:bundle,config,context,results});}
  function weightRows(active:boolean){return config.parameters.map((p,i)=>p.enabled===active&&<tr key={p.id}>
   <th scope="row">{p.label}</th>
@@ -114,7 +124,7 @@ function App(){
       <h2>Observations</h2><label>Soil source<select value={soilSource} onChange={e=>{setSoilSource(e.target.value as SoilSource);setBundle(null);setCellId('');}}><option value="OPENLANDMAP">OpenLandMap</option><option value="SOILGRIDS">SoilGrids</option></select></label>
       <Upload onChange={e=>importFile(e,'evidence')}>Import observations</Upload>
       <details><summary>Extraction tools</summary><div className="detail-body"><p className="muted">The generated script uses SoilGrids.</p><div className="stack"><button onClick={()=>{try{download('gis-sagar-code-editor.js',codeEditorScript(site,makeGrid(site)),true);}catch(e){setError((e as Error).message);}}}>Download GEE script</button><button onClick={()=>download('gis-sagar-request.json',geeRequest(site,makeGrid(site)))}>Export request</button><button onClick={()=>{setBundle(syntheticEvidence(site));setSoilSource('SOILGRIDS');setError('');}}>Load synthetic example</button></div></div></details>
-      <details><summary>Connection</summary><div className="detail-body"><label>Service URL<input type="url" value={endpoint} onChange={e=>setEndpoint(e.target.value)}/></label><label>Session token<input type="password" autoComplete="off" value={accessToken} onChange={e=>setAccessToken(e.target.value)}/></label><button onClick={live} disabled={loading}>{loading?'Loading…':'Retrieve observations'}</button><p className="muted">SoilGrids only. Use an application session token.</p></div></details>
+      <details><summary>Connection</summary><div className="detail-body">{authConfigured()?(sessionEmail?<div className="stack"><p className="muted">Pilot session: {sessionEmail}</p><button onClick={signOut}>Sign out</button></div>:<form onSubmit={signIn} className="stack"><label>Pilot email<input type="email" autoComplete="username" value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Password<input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)}/></label><button type="submit" disabled={authBusy||!email||!password}>{authBusy?'Signing in…':'Sign in'}</button></form>):<p className="muted">Pilot sign-in is not configured in this deployment.</p>}<label>Service URL<input type="url" value={endpoint} onChange={e=>setEndpoint(e.target.value)}/></label><button onClick={live} disabled={loading}>{loading?'Loading…':'Retrieve observations'}</button><p className="muted">Retrieves the selected soil source for the current boundary using the pilot session. Credentials stay on the server.</p></div></details>
      </div></details>
      <details className="tool settings" name="workspace-tools"><summary>Settings</summary><div className="tool-panel">
       <h2>Weights</h2><div className="table-scroll"><table><thead><tr><th>Factor</th><th>On</th><th>Location</th><th>Structure</th></tr></thead><tbody>{weightRows(true)}</tbody></table></div>

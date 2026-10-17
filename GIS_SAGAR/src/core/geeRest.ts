@@ -1,4 +1,6 @@
 import {ASSETS,type EvidenceBundle} from './evidence.ts';
+import {OPENLANDMAP_ASSET,OPENLANDMAP_TEXTURES,TEXTURE_DEPTHS} from './soil.ts';
+import type {Texture} from './types.ts';
 import type {validateRequest} from './request.ts';
 type Request=ReturnType<typeof validateRequest>;
 type Node={constantValue?:unknown;functionInvocationValue?:{functionName:string;arguments:Record<string,Node>};arrayValue?:{values:Node[]};dictionaryValue?:{values:Record<string,Node>}};
@@ -26,15 +28,26 @@ export function geeExpression(request:Request){
  const constantImage=(v:number)=>call('Image.constant',{value:k(v)});
  const radians=call('Image.multiply',{image1:degrees,image2:constantImage(Math.PI/180)});
  const percent=rename(call('Image.multiply',{image1:call('Image.tan',{image:radians}),image2:constantImage(100)}),['slope_percent']);
- const depths=['0-5','5-15','15-30','30-60','60-100'];
- const soil=['sand','silt','clay'].map((p,i)=>select(img(ASSETS[i+1]),depths.map(d=>`${p}_${d}cm_mean`)));
- const soilProj=call('Image.projection',{image:soil[0]});
- const support=rename(call('Image.pixelCoordinates',{projection:soilProj}),['soil_pixel_x','soil_pixel_y']);
  const features=request.cells.map(c=>call('Feature',{geometry:call('GeometryConstructors.Point',{coordinates:k(c.point)}),metadata:k({id:c.id})}));
  const points=call('Collection',{features:{arrayValue:{values:features}}});
  const reducer=call('Reducer.first');
- const sampledSoil=call('Image.reduceRegions',{image:add(add(add(soil[0],soil[1]),soil[2]),support),collection:points,reducer,scale:k(250),crs:soilProj,tileScale:k(2)});
- const sampled=call('Image.reduceRegions',{image:add(degrees,percent),collection:sampledSoil,reducer,scale:k(30),crs:terrainProj,tileScale:k(2)});
+ let soilImage:Node;
+ let soilProj:Node;
+ if(request.soilSource==='OPENLANDMAP'){
+  // Categorical asset at its complete native projection; bands are depths, not intervals.
+  const soil=select(img(OPENLANDMAP_ASSET),['b0','b10','b30','b60','b100']);
+  soilProj=call('Image.projection',{image:soil});
+  // Sample on the source's own projection/scale; no crsTransform text, no resampling to 250.
+  soilImage=call('Image.reduceRegions',{image:soil,collection:points,reducer,scale:k(231.91556871282302),crs:soilProj,tileScale:k(2)});
+ }else{
+  const depths=['0-5','5-15','15-30','30-60','60-100'];
+  const soilAssets=[ASSETS[1],ASSETS[2],ASSETS[3]];
+  const soil=['sand','silt','clay'].map((p,i)=>select(img(soilAssets[i]),depths.map(d=>`${p}_${d}cm_mean`)));
+  soilProj=call('Image.projection',{image:soil[0]});
+  const support=rename(call('Image.pixelCoordinates',{projection:soilProj}),['soil_pixel_x','soil_pixel_y']);
+  soilImage=call('Image.reduceRegions',{image:add(add(add(soil[0],soil[1]),soil[2]),support),collection:points,reducer,scale:k(250),crs:soilProj,tileScale:k(2)});
+ }
+ const sampled=call('Image.reduceRegions',{image:add(degrees,percent),collection:soilImage,reducer,scale:k(30),crs:terrainProj,tileScale:k(2)});
  // A FeatureCollection is supported by the value:compute getInfo-style response.
  const root=(sampled as unknown as {valueReference:string}).valueReference;
  return {result:root,values};
@@ -43,9 +56,25 @@ export function restResult(request:Request,data:unknown):EvidenceBundle {
  const r=data as {features?:{properties:Record<string,unknown>}[]};
  if(!Array.isArray(r?.features))throw new Error('Unexpected Earth Engine response. Provider adapter parity needs diagnosis.');
  const samples=new Map(r.features.map(f=>[String(f.properties.id),f.properties]));
- return {schema:'gis-sagar-evidence-v1',mode:'GEE',site:request.site,createdAt:new Date().toISOString(),method:'Representative points sampled at native soil (250 m) and terrain (30 m) support; REST adapter, authenticated parity pending.',sourceAssets:ASSETS,cells:request.cells.map(spatial=>{
-  const p=samples.get(spatial.id)||{};const depths=['0-5','5-15','15-30','30-60','60-100'];
+ const depths=['0-5','5-15','15-30','30-60','60-100'];
+ const method='Representative points sampled at native source support; REST adapter, authenticated parity pending.';
+ if(request.soilSource==='OPENLANDMAP'){
+  const sourceAssets=[ASSETS[0],OPENLANDMAP_ASSET];
+  return {schema:'gis-sagar-evidence-v1',mode:'GEE',site:request.site,createdAt:new Date().toISOString(),method,soilSource:'OPENLANDMAP',sourceAssets,sourceMetadata:{soilSelection:'Explicit request selection; no fallback between soil sources.',sourceErrors:{SOILGRIDS:null,ALOS:null,OPENLANDMAP:null},textureDepthsCm:TEXTURE_DEPTHS},cells:request.cells.map(spatial=>{
+   const p=samples.get(spatial.id)||{};
+   const layers=[] as {depthCm:number;sourceClass:number;texture:Texture}[];
+   for(const depthCm of TEXTURE_DEPTHS){
+    const value=p[`b${depthCm}`];
+    if(typeof value==='number'&&Number.isInteger(value)&&value>=1&&value<=12)layers.push({depthCm,sourceClass:value,texture:OPENLANDMAP_TEXTURES[value-1]});
+   }
+   const complete=layers.length===TEXTURE_DEPTHS.length;
+   return {id:spatial.id,spatial,slopePercent:typeof p.slope_percent==='number'?p.slope_percent:null,soil:null,soilTextureProfile:complete?{source:'OPENLANDMAP',asset:OPENLANDMAP_ASSET,layers}:null};
+  })};
+ }
+ return {schema:'gis-sagar-evidence-v1',mode:'GEE',site:request.site,createdAt:new Date().toISOString(),method,sourceAssets:ASSETS,cells:request.cells.map(spatial=>{
+  const p=samples.get(spatial.id)||{};
   const has=depths.every(d=>['sand','silt','clay'].every(k=>typeof p[`${k}_${d}cm_mean`]==='number'));
   return {id:spatial.id,spatial,slopePercent:typeof p.slope_percent==='number'?p.slope_percent:null,soil:has?depths.map(depth=>({depth,sand:Number(p[`sand_${depth}cm_mean`])/10,silt:Number(p[`silt_${depth}cm_mean`])/10,clay:Number(p[`clay_${depth}cm_mean`])/10})):null};
  })};
 }
+export const OPENLANDMAP_BANDS=['b0','b10','b30','b60','b100'];

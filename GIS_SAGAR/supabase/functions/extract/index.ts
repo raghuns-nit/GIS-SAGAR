@@ -18,16 +18,19 @@ async function googleToken(){
 }
 Deno.serve(async request=>{
  const origin=request.headers.get('origin');const allowed=get('ALLOWED_ORIGIN');
- const headers={'Content-Type':'application/json','Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Headers':'authorization,content-type,apikey','Access-Control-Allow-Methods':'POST,OPTIONS','Vary':'Origin'};
- const json=(status:number,data:unknown)=>new Response(JSON.stringify(data),{status,headers});
+ const corsHeaders={'Access-Control-Allow-Origin':allowed||'*','Access-Control-Allow-Methods':'GET, POST, PUT, DELETE, OPTIONS','Access-Control-Allow-Headers':'Content-Type, Authorization, X-Client-Info, Apikey','Vary':'Origin'};
+ const json=(status:number,data:unknown)=>new Response(JSON.stringify(data),{status,headers:{...corsHeaders,'Content-Type':'application/json'}});
+ if(request.method==='OPTIONS')return new Response(null,{status:200,headers:corsHeaders});
  if(!allowed)return json(503,{error:'Backend origin is not configured.'});
  if(origin&&origin!==allowed)return json(403,{error:'Origin is not allowed.'});
- if(request.method==='OPTIONS')return new Response(null,{status:204,headers});
  if(request.method!=='POST')return json(405,{error:'POST required.'});
  const bearer=request.headers.get('authorization');if(!bearer?.startsWith('Bearer '))return json(401,{error:'Sign in to the application first.'});
- if(!get('SUPABASE_URL')||!get('SUPABASE_ANON_KEY')||!get('ALLOWED_USER_IDS'))return json(503,{error:'Backend authentication allowlist is not configured.'});
+ // Current and legacy Supabase key formats are both accepted for user verification.
+ const userKey=get('SUPABASE_ANON_KEY')||get('SUPABASE_PUBLISHABLE_KEY');
+
+ if(!get('SUPABASE_URL')||!userKey||!get('ALLOWED_USER_IDS'))return json(503,{error:'Backend authentication allowlist is not configured.'});
  try{
-  const userResponse=await fetch(get('SUPABASE_URL')+'/auth/v1/user',{headers:{Authorization:bearer,apikey:get('SUPABASE_ANON_KEY')},signal:AbortSignal.timeout(10000)});
+  const userResponse=await fetch(get('SUPABASE_URL')+'/auth/v1/user',{headers:{Authorization:bearer,apikey:userKey},signal:AbortSignal.timeout(10000)});
   if(!userResponse.ok)return json(401,{error:'Session is invalid or expired.'});
   const user=await userResponse.json();if(!get('ALLOWED_USER_IDS').split(',').map(x=>x.trim()).includes(user.id))return json(403,{error:'User is not enabled for this pilot.'});
   const text=await request.text();if(text.length>2_000_000)return json(413,{error:'Request is too large.'});

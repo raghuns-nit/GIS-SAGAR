@@ -13,7 +13,7 @@ export function validateBundle(raw:unknown,expectedSite?:Site,soilSource:SoilSou
  if(b.soilSource==='OPENLANDMAP'&&!b.sourceAssets.includes(OPENLANDMAP_ASSET))throw new Error('OpenLandMap source asset is missing.');
  for(const c of b.cells){
   if(c.soilSource!==undefined&&!['SOILGRIDS','OPENLANDMAP'].includes(c.soilSource))throw new Error('Unknown cell soil source.');
-  if(b.soilSource!==undefined&&(c.soilSource??'SOILGRIDS')!==b.soilSource)throw new Error('Mixed soil sources in evidence bundle.');
+  if(b.soilSource!==undefined&&(c.soilSource??(b.soilSource==='OPENLANDMAP'?'OPENLANDMAP':'SOILGRIDS'))!==b.soilSource)throw new Error('Mixed soil sources in evidence bundle.');
   if(c.soilTextureProfile!=null)validateTextureProfile(c.soilTextureProfile);
  }
  const grid=new Map(makeGrid(b.site).map(c=>[c.id,c]));
