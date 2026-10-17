@@ -1,0 +1,50 @@
+{
+  "centre": {
+    "latitude": 13.018185760719339,
+    "longitude": 74.79430899999998
+  },
+  "siteWidthM": 100,
+  "siteHeightM": 100,
+  "mode": "GEE user-executed export; local deterministic model evaluation",
+  "soilSource": "OPENLANDMAP",
+  "cellCount": 16,
+  "completeSoilGrids": 0,
+  "completeOpenLandMap": 16,
+  "slopeRangePercent": [
+    0,
+    11.452599573292279
+  ],
+  "sourceErrors": {
+    "SOILGRIDS": null,
+    "ALOS": null,
+    "OPENLANDMAP": null
+  },
+  "surfaceTextureCounts": {
+    "loam": 12,
+    "clay loam": 4
+  },
+  "textureAt10_30_60_100cm": "clay loam in all 16 samples",
+  "limitingSoilRank": 1,
+  "zoneScores": {
+    "30": 11,
+    "60": 5
+  },
+  "primaryCandidateCount": 0,
+  "exploratoryFamilies": [
+    {
+      "id": "STR_PIT",
+      "name": "Infiltration pit",
+      "score": null,
+      "originalOutcome": "NOT_SHORTLISTED",
+      "selectionBasis": "Option to investigate; original model result retained"
+    },
+    {
+      "id": "STR_TRENCH",
+      "name": "Infiltration trench",
+      "score": null,
+      "originalOutcome": "NOT_SHORTLISTED",
+      "selectionBasis": "Option to investigate; original model result retained"
+    }
+  ],
+  "note": "Preference indices are development rules, not probabilities or engineering approval. Soil samples have approximately 250 m support; 16 model cells are not 16 independent soil observations."
+}

@@ -1,0 +1,1270 @@
+{
+  "schema": "gis-sagar-evidence-v1",
+  "mode": "GEE",
+  "site": {
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            74.79384826444029,
+            13.017733262403732
+          ],
+          [
+            74.79477048134375,
+            13.017733993642397
+          ],
+          [
+            74.79476973723153,
+            13.018638258225817
+          ],
+          [
+            74.79384751698439,
+            13.018637526934635
+          ],
+          [
+            74.79384826444029,
+            13.017733262403732
+          ]
+        ]
+      ]
+    }
+  },
+  "soilSource": "OPENLANDMAP",
+  "createdAt": "2026-10-17T16:20:55.563Z",
+  "method": "Representative point samples; soil on exact native grid; terrain sampled at 30 m; not polygon means.",
+  "sourceAssets": [
+    "JAXA/ALOS/AW3D30/V4_1",
+    "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02"
+  ],
+  "sourceMetadata": {
+    "alosTiles": [
+      "N013E074"
+    ],
+    "soilBands": [
+      "sand_0-5cm_mean",
+      "sand_5-15cm_mean",
+      "sand_15-30cm_mean",
+      "sand_30-60cm_mean",
+      "sand_60-100cm_mean",
+      "silt_0-5cm_mean",
+      "silt_5-15cm_mean",
+      "silt_15-30cm_mean",
+      "silt_30-60cm_mean",
+      "silt_60-100cm_mean",
+      "clay_0-5cm_mean",
+      "clay_5-15cm_mean",
+      "clay_15-30cm_mean",
+      "clay_30-60cm_mean",
+      "clay_60-100cm_mean"
+    ],
+    "soilProjection": "PROJCS[\"World_Mollweide\", \n  GEOGCS[\"GCS_WGS_1984\", \n    DATUM[\"D_WGS_1984\", \n      SPHEROID[\"WGS_1984\", 6378137.0, 298.257223563]], \n    PRIMEM[\"Greenwich\", 0.0], \n    UNIT[\"degree\", 0.017453292519943295], \n    AXIS[\"Longitude\", EAST], \n    AXIS[\"Latitude\", NORTH]], \n  PROJECTION[\"Mollweide\"], \n  PARAMETER[\"semi_minor\", 6378137.0], \n  PARAMETER[\"false_easting\", 0.0], \n  PARAMETER[\"false_northing\", 0.0], \n  PARAMETER[\"central_meridian\", 0.0], \n  UNIT[\"m\", 1.0], \n  AXIS[\"x\", EAST], \n  AXIS[\"y\", NORTH]]",
+    "terrainProjection": "EPSG:4326",
+    "sourceErrors": {
+      "SOILGRIDS": null,
+      "ALOS": null,
+      "OPENLANDMAP": null
+    },
+    "sourceDetails": {
+      "alos": {
+        "crs": "EPSG:4326",
+        "nominal_scale_m": 30.922080775909325,
+        "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3], \n  PARAMETER[\"elt_0_0\", 0.0002777777777777778], \n  PARAMETER[\"elt_0_2\", 74.0], \n  PARAMETER[\"elt_1_1\", -0.0002777777777777778], \n  PARAMETER[\"elt_1_2\", 14.0]]",
+        "wkt": "GEOGCS[\"WGS 84\", \n  DATUM[\"World Geodetic System 1984\", \n    SPHEROID[\"WGS 84\", 6378137.0, 298.257223563, AUTHORITY[\"EPSG\",\"7030\"]], \n    AUTHORITY[\"EPSG\",\"6326\"]], \n  PRIMEM[\"Greenwich\", 0.0, AUTHORITY[\"EPSG\",\"8901\"]], \n  UNIT[\"degree\", 0.017453292519943295], \n  AXIS[\"Geodetic longitude\", EAST], \n  AXIS[\"Geodetic latitude\", NORTH], \n  AUTHORITY[\"EPSG\",\"4326\"]]"
+      },
+      "soilgrids": {
+        "crs": null,
+        "nominal_scale_m": 250,
+        "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3], \n  PARAMETER[\"elt_0_0\", 250.0], \n  PARAMETER[\"elt_0_2\", -17960764.70917111], \n  PARAMETER[\"elt_1_1\", -250.0], \n  PARAMETER[\"elt_1_2\", 8697788.131638981]]",
+        "wkt": "PROJCS[\"World_Mollweide\", \n  GEOGCS[\"GCS_WGS_1984\", \n    DATUM[\"D_WGS_1984\", \n      SPHEROID[\"WGS_1984\", 6378137.0, 298.257223563]], \n    PRIMEM[\"Greenwich\", 0.0], \n    UNIT[\"degree\", 0.017453292519943295], \n    AXIS[\"Longitude\", EAST], \n    AXIS[\"Latitude\", NORTH]], \n  PROJECTION[\"Mollweide\"], \n  PARAMETER[\"semi_minor\", 6378137.0], \n  PARAMETER[\"false_easting\", 0.0], \n  PARAMETER[\"false_northing\", 0.0], \n  PARAMETER[\"central_meridian\", 0.0], \n  UNIT[\"m\", 1.0], \n  AXIS[\"x\", EAST], \n  AXIS[\"y\", NORTH]]"
+      },
+      "openlandmap": {
+        "crs": "EPSG:4326",
+        "nominal_scale_m": 231.91556871282302,
+        "transform": "PARAM_MT[\"Affine\", \n  PARAMETER[\"num_row\", 3], \n  PARAMETER[\"num_col\", 3], \n  PARAMETER[\"elt_0_0\", 0.002083333], \n  PARAMETER[\"elt_0_2\", -180.0], \n  PARAMETER[\"elt_1_1\", -0.002083333], \n  PARAMETER[\"elt_1_2\", 87.37]]",
+        "wkt": "GEOGCS[\"WGS 84\", \n  DATUM[\"World Geodetic System 1984\", \n    SPHEROID[\"WGS 84\", 6378137.0, 298.257223563, AUTHORITY[\"EPSG\",\"7030\"]], \n    AUTHORITY[\"EPSG\",\"6326\"]], \n  PRIMEM[\"Greenwich\", 0.0, AUTHORITY[\"EPSG\",\"8901\"]], \n  UNIT[\"degree\", 0.017453292519943295], \n  AXIS[\"Geodetic longitude\", EAST], \n  AXIS[\"Geodetic latitude\", NORTH], \n  AUTHORITY[\"EPSG\",\"4326\"]]"
+      }
+    },
+    "soilGridsValidPixelsWithin1km": {
+      "clay_0-5cm_mean": 15,
+      "clay_15-30cm_mean": 15,
+      "clay_30-60cm_mean": 15,
+      "clay_5-15cm_mean": 15,
+      "clay_60-100cm_mean": 15,
+      "sand_0-5cm_mean": 15,
+      "sand_15-30cm_mean": 15,
+      "sand_30-60cm_mean": 15,
+      "sand_5-15cm_mean": 15,
+      "sand_60-100cm_mean": 15,
+      "silt_0-5cm_mean": 15,
+      "silt_15-30cm_mean": 15,
+      "silt_30-60cm_mean": 15,
+      "silt_5-15cm_mean": 15,
+      "silt_60-100cm_mean": 15
+    },
+    "textureDepthsCm": [
+      0,
+      10,
+      30,
+      60,
+      100
+    ],
+    "soilSelection": "Explicit import selection; no fallback between soil sources."
+  },
+  "cells": [
+    {
+      "id": "477630_1439100",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477630_1439100",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.7938480838306,
+                13.017951762176809
+              ],
+              [
+                74.79384826444029,
+                13.017733262403732
+              ],
+              [
+                74.79397580992082,
+                13.017733363536324
+              ],
+              [
+                74.79397562942823,
+                13.017951863543182
+              ],
+              [
+                74.7938480838306,
+                13.017951762176809
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79391194687571,
+          13.017842562973456
+        ],
+        "areaM2": 335.7226274481895
+      },
+      "slopePercent": 4.8563310973165255,
+      "soil": null
+    },
+    {
+      "id": "477630_1439130",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477630_1439130",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79384785959382,
+                13.018223041538125
+              ],
+              [
+                74.7938480838306,
+                13.017951762176809
+              ],
+              [
+                74.79397562942823,
+                13.017951863543182
+              ],
+              [
+                74.79397540533202,
+                13.018223142906685
+              ],
+              [
+                74.79384785959382,
+                13.018223041538125
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79391174451104,
+          13.018087452541746
+        ],
+        "areaM2": 416.81770364135394
+      },
+      "slopePercent": 11.452599573292279,
+      "soil": null
+    },
+    {
+      "id": "477630_1439160",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477630_1439160",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79384763535705,
+                13.018494320893774
+              ],
+              [
+                74.79384785959382,
+                13.018223041538125
+              ],
+              [
+                74.79397540533202,
+                13.018223142906685
+              ],
+              [
+                74.79397518123075,
+                13.018494422264515
+              ],
+              [
+                74.79384763535705,
+                13.018494320893774
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79391152034454,
+          13.01835873190132
+        ],
+        "areaM2": 416.8176897364456
+      },
+      "slopePercent": 1.618777083620225,
+      "soil": null
+    },
+    {
+      "id": "477630_1439190",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477630_1439190",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79384751698439,
+                13.018637526934635
+              ],
+              [
+                74.79384763535705,
+                13.018494320893774
+              ],
+              [
+                74.79397518123075,
+                13.018494422264515
+              ],
+              [
+                74.79397506292712,
+                13.018637628074492
+              ],
+              [
+                74.79384751698439,
+                13.018637526934635
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79391134910756,
+          13.018565974484133
+        ],
+        "areaM2": 220.03429086957894
+      },
+      "slopePercent": 5.240722849745164,
+      "soil": null
+    },
+    {
+      "id": "477660_1439100",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477660_1439100",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79397562942823,
+                13.017951863543182
+              ],
+              [
+                74.79397580992082,
+                13.017733363536324
+              ],
+              [
+                74.79425247498845,
+                13.017733582907923
+              ],
+              [
+                74.79425229473809,
+                13.017952083126804
+              ],
+              [
+                74.79397562942823,
+                13.017951863543182
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79411405220834,
+          13.017842723331565
+        ],
+        "areaM2": 728.2329068044141
+      },
+      "slopePercent": 6.840216693022589,
+      "soil": null
+    },
+    {
+      "id": "477660_1439130",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477660_1439130",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79397540533202,
+                13.018223142906685
+              ],
+              [
+                74.79397562942823,
+                13.017951863543182
+              ],
+              [
+                74.79425229473809,
+                13.017952083126804
+              ],
+              [
+                74.79425207094279,
+                13.018223362495036
+              ],
+              [
+                74.79397540533202,
+                13.018223142906685
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79411385003505,
+          13.018087613019109
+        ],
+        "areaM2": 904.1393953163798
+      },
+      "slopePercent": 5.240712418200264,
+      "soil": null
+    },
+    {
+      "id": "477660_1439160",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477660_1439160",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79397518123075,
+                13.018494422264515
+              ],
+              [
+                74.79397540533202,
+                13.018223142906685
+              ],
+              [
+                74.79425207094279,
+                13.018223362495036
+              ],
+              [
+                74.79425184714245,
+                13.018494641857604
+              ],
+              [
+                74.79397518123075,
+                13.018494422264515
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79411362608677,
+          13.018358892382144
+        ],
+        "areaM2": 904.139370123806
+      },
+      "slopePercent": 5.9436049969050675,
+      "soil": null
+    },
+    {
+      "id": "477660_1439190",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477660_1439190",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79397506292712,
+                13.018637628074492
+              ],
+              [
+                74.79397518123075,
+                13.018494422264515
+              ],
+              [
+                74.79425184714245,
+                13.018494641857604
+              ],
+              [
+                74.79425172899785,
+                13.018637847461843
+              ],
+              [
+                74.79397506292712,
+                13.018637628074492
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79411345503479,
+          13.018566134863178
+        ],
+        "areaM2": 477.28628170624546
+      },
+      "slopePercent": 3.6389949533605948,
+      "soil": null
+    },
+    {
+      "id": "477690_1439100",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477690_1439100",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79425229473809,
+                13.017952083126804
+              ],
+              [
+                74.79425247498845,
+                13.017733582907923
+              ],
+              [
+                74.79452914006092,
+                13.017733802279523
+              ],
+              [
+                74.79452896005299,
+                13.017952302415361
+              ],
+              [
+                74.79425229473809,
+                13.017952083126804
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.7943907173995,
+          13.017842942661641
+        ],
+        "areaM2": 728.2331331336038
+      },
+      "slopePercent": 8.307388289409102,
+      "soil": null
+    },
+    {
+      "id": "477690_1439130",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477690_1439130",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79425207094279,
+                13.018223362495036
+              ],
+              [
+                74.79425229473809,
+                13.017952083126804
+              ],
+              [
+                74.79452896005299,
+                13.017952302415361
+              ],
+              [
+                74.79452873655863,
+                13.018223581788318
+              ],
+              [
+                74.79425207094279,
+                13.018223362495036
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.7943905154979,
+          13.01808783245756
+        ],
+        "areaM2": 904.1394252234288
+      },
+      "slopePercent": 3.322958959738262,
+      "soil": null
+    },
+    {
+      "id": "477690_1439160",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477690_1439160",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79425184714245,
+                13.018494641857604
+              ],
+              [
+                74.79425207094279,
+                13.018223362495036
+              ],
+              [
+                74.79452873655863,
+                13.018223581788318
+              ],
+              [
+                74.79452851305923,
+                13.018494861155608
+              ],
+              [
+                74.79425184714245,
+                13.018494641857604
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79439029185053,
+          13.018359111825323
+        ],
+        "areaM2": 904.1394001039143
+      },
+      "slopePercent": 5.132686893690179,
+      "soil": null
+    },
+    {
+      "id": "477690_1439190",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477690_1439190",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79425172899785,
+                13.018637847461843
+              ],
+              [
+                74.79425184714245,
+                13.018494641857604
+              ],
+              [
+                74.79452851305923,
+                13.018494861155608
+              ],
+              [
+                74.79452839507343,
+                13.0186380668492
+              ],
+              [
+                74.79425172899785,
+                13.018637847461843
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79439012102854,
+          13.018566354353402
+        ],
+        "areaM2": 477.286095284637
+      },
+      "slopePercent": 8.915991785213752,
+      "soil": null
+    },
+    {
+      "id": "477720_1439100",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477720_1439100",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79452896005299,
+                13.017952302415361
+              ],
+              [
+                74.79452914006092,
+                13.017733802279523
+              ],
+              [
+                74.79477048134375,
+                13.017733993642397
+              ],
+              [
+                74.79477030154197,
+                13.017952493448393
+              ],
+              [
+                74.79452896005299,
+                13.017952302415361
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79464972069837,
+          13.017843147863957
+        ],
+        "areaM2": 635.2538418722082
+      },
+      "slopePercent": 0,
+      "soil": null
+    },
+    {
+      "id": "477720_1439130",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477720_1439130",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79452873655863,
+                13.018223581788318
+              ],
+              [
+                74.79452896005299,
+                13.017952302415361
+              ],
+              [
+                74.79477030154197,
+                13.017952493448393
+              ],
+              [
+                74.7947700783083,
+                13.018223772825465
+              ],
+              [
+                74.79452873655863,
+                13.018223581788318
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.7946495190503,
+          13.018088037620412
+        ],
+        "areaM2": 788.7015305442759
+      },
+      "slopePercent": 10.472783560034474,
+      "soil": null
+    },
+    {
+      "id": "477720_1439160",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477720_1439160",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79452851305923,
+                13.018494861155608
+              ],
+              [
+                74.79452873655863,
+                13.018223581788318
+              ],
+              [
+                74.7947700783083,
+                13.018223772825465
+              ],
+              [
+                74.79476985507465,
+                13.01849505219687
+              ],
+              [
+                74.79452851305923,
+                13.018494861155608
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79464929568377,
+          13.018359316992594
+        ],
+        "areaM2": 788.7015108762762
+      },
+      "slopePercent": 9.505559430590768,
+      "soil": null
+    },
+    {
+      "id": "477720_1439190",
+      "soilSource": "OPENLANDMAP",
+      "soilTextureProfile": {
+        "source": "OPENLANDMAP",
+        "asset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+        "layers": [
+          {
+            "depthCm": 0,
+            "sourceClass": 7,
+            "texture": "loam"
+          },
+          {
+            "depthCm": 10,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 30,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 60,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          },
+          {
+            "depthCm": 100,
+            "sourceClass": 4,
+            "texture": "clay loam"
+          }
+        ]
+      },
+      "spatial": {
+        "id": "477720_1439190",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                74.79452839507343,
+                13.0186380668492
+              ],
+              [
+                74.79452851305923,
+                13.018494861155608
+              ],
+              [
+                74.79476985507465,
+                13.01849505219687
+              ],
+              [
+                74.79476973723153,
+                13.018638258225817
+              ],
+              [
+                74.79452839507343,
+                13.0186380668492
+              ]
+            ]
+          ]
+        },
+        "point": [
+          74.79464912507405,
+          13.018566559690711
+        ],
+        "areaM2": 416.3482118200904
+      },
+      "slopePercent": 8.171399094744723,
+      "soil": null
+    }
+  ]
+}

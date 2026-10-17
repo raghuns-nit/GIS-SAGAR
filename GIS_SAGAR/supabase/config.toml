@@ -1,0 +1,5 @@
+project_id = "gis-sagar"
+
+[functions.extract]
+# The handler validates the signed-in user through Supabase Auth and an allowlist.
+verify_jwt = false

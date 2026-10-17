@@ -1,0 +1,240 @@
+{
+  "version": "v1-development-0.4",
+  "requiredDepths": [
+    "0-5",
+    "5-15",
+    "15-30",
+    "30-60",
+    "60-100"
+  ],
+  "requiredTextureDepthsCm": [
+    0,
+    10,
+    30,
+    60,
+    100
+  ],
+  "soilTolerance": 5,
+  "parameters": [
+    {
+      "id": "geomorphology",
+      "label": "Geomorphology",
+      "unit": "class",
+      "enabled": false,
+      "zoneWeight": 15,
+      "structureWeight": 10
+    },
+    {
+      "id": "lulc",
+      "label": "Land cover",
+      "unit": "class",
+      "enabled": false,
+      "zoneWeight": 10,
+      "structureWeight": 25
+    },
+    {
+      "id": "soil_texture",
+      "label": "Soil texture",
+      "unit": "class by depth",
+      "enabled": true,
+      "zoneWeight": 10,
+      "structureWeight": 25
+    },
+    {
+      "id": "slope_pct",
+      "label": "Slope",
+      "unit": "%",
+      "enabled": true,
+      "zoneWeight": 15,
+      "structureWeight": 20
+    },
+    {
+      "id": "groundwater_depth_postmonsoon",
+      "label": "Post-monsoon groundwater depth",
+      "unit": "m bgl",
+      "enabled": false,
+      "zoneWeight": 15,
+      "structureWeight": 0
+    },
+    {
+      "id": "geology",
+      "label": "Geology",
+      "unit": "class",
+      "enabled": false,
+      "zoneWeight": 10,
+      "structureWeight": 10
+    },
+    {
+      "id": "drainage",
+      "label": "Drainage context",
+      "unit": "feature set",
+      "enabled": false,
+      "zoneWeight": 10,
+      "structureWeight": 10
+    },
+    {
+      "id": "weathering_thickness",
+      "label": "Weathering thickness",
+      "unit": "m",
+      "enabled": false,
+      "zoneWeight": 15,
+      "structureWeight": 0
+    },
+    {
+      "id": "rainfall",
+      "label": "Rainfall",
+      "unit": "mm / defined period",
+      "enabled": false,
+      "zoneWeight": 0,
+      "structureWeight": 0
+    }
+  ],
+  "soilRanks": {
+    "sand": 3,
+    "loamy sand": 3,
+    "sandy loam": 3,
+    "loam": 2,
+    "silt loam": 2,
+    "sandy clay loam": 2,
+    "silt": 1,
+    "clay loam": 1,
+    "silty clay loam": 1,
+    "sandy clay": 1,
+    "silty clay": 1,
+    "clay": 1
+  },
+  "zoneSlopeBins": [
+    {
+      "min": 0,
+      "max": 3,
+      "rank": 3
+    },
+    {
+      "min": 3,
+      "max": 5,
+      "rank": 3
+    },
+    {
+      "min": 5,
+      "max": 10,
+      "rank": 2
+    },
+    {
+      "min": 10,
+      "max": 15,
+      "includeMax": true,
+      "rank": 2
+    },
+    {
+      "min": 15,
+      "max": null,
+      "rank": 1
+    }
+  ],
+  "structureRules": {
+    "STR_PIT": {
+      "soilMinimum": 2,
+      "threshold": 50,
+      "factorMappings": {
+        "soil_texture": "soil",
+        "slope_pct": "slope"
+      },
+      "slopeBins": [
+        {
+          "min": 0,
+          "max": 3,
+          "rank": 3
+        },
+        {
+          "min": 3,
+          "max": 5,
+          "rank": 2
+        },
+        {
+          "min": 5,
+          "max": 10,
+          "rank": 1
+        },
+        {
+          "min": 10,
+          "max": null,
+          "rank": null
+        }
+      ]
+    },
+    "STR_TRENCH": {
+      "soilMinimum": 2,
+      "threshold": 50,
+      "factorMappings": {
+        "soil_texture": "soil",
+        "slope_pct": "slope"
+      },
+      "slopeBins": [
+        {
+          "min": 0,
+          "max": 3,
+          "rank": 2
+        },
+        {
+          "min": 3,
+          "max": 5,
+          "rank": 3
+        },
+        {
+          "min": 5,
+          "max": 10,
+          "rank": 2
+        },
+        {
+          "min": 10,
+          "max": null,
+          "rank": null
+        }
+      ]
+    },
+    "STR_PERCOLATION": {
+      "soilMinimum": 2,
+      "threshold": 50,
+      "factorMappings": {
+        "soil_texture": "soil",
+        "slope_pct": "slope"
+      },
+      "slopeBins": [
+        {
+          "min": 0,
+          "max": 3,
+          "rank": 3
+        },
+        {
+          "min": 3,
+          "max": 5,
+          "rank": 1
+        },
+        {
+          "min": 5,
+          "max": null,
+          "rank": null
+        }
+      ]
+    }
+  },
+  "fallback": {
+    "enabled": true,
+    "count": 2,
+    "order": [
+      "STR_PIT",
+      "STR_TRENCH",
+      "STR_PERCOLATION",
+      "STR_DITCH_FURROW",
+      "STR_CHECK_NALA",
+      "STR_GABION",
+      "STR_TANK_RESTORATION",
+      "STR_DUG_WELL",
+      "STR_SHAFT",
+      "STR_INJECTION_WELL",
+      "STR_INDUCED",
+      "STR_SUBSURFACE",
+      "STR_INTERWATERSHED"
+    ]
+  }
+}
