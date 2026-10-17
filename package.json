@@ -1,0 +1,9 @@
+{
+  "name": "project",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix GIS_SAGAR",
+    "build": "npm run build --prefix GIS_SAGAR",
+    "test": "npm test --prefix GIS_SAGAR"
+  }
+}
