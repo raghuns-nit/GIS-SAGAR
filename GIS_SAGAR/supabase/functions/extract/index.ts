@@ -1,6 +1,6 @@
-import {validateRequest} from '../../../src/core/request.ts';
-import {geeExpression,restResult} from '../../../src/core/geeRest.ts';
-// Supabase Edge Function. Authored and source-tested; live parity still pending. Rev 4.
+import {validateRequest} from './lib/request.ts';
+import {geeExpression,restResult} from './lib/geeRest.ts';
+// Supabase Edge Function. Authored and source-tested; live parity still pending. Rev 5.
 declare const Deno: {env:{get:(name:string)=>string|undefined};serve:(fn:(r:Request)=>Promise<Response>)=>void};
 const get=(key:string)=>Deno.env.get(key)||'';
 const encode=(value:Uint8Array)=>btoa(String.fromCharCode(...value)).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
